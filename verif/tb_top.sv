@@ -19,7 +19,7 @@
 module tb_top;
 import afifo_pkg::*;
   localparam int DATAWIDTH   = 8;
-  localparam int DEPTH       = 7;
+  localparam int DEPTH       = 6;
   localparam int NUM_OPS_PER_CLIENT = 32;
   localparam int DRAIN_STEPS  = 64;
   localparam int TOTAL_STEPS  = (4 * NUM_OPS_PER_CLIENT) + DRAIN_STEPS;
