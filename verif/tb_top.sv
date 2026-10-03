@@ -24,6 +24,7 @@ import afifo_pkg::*;
   localparam int DRAIN_STEPS  = 64;
   localparam int TOTAL_STEPS  = (4 * NUM_OPS_PER_CLIENT) + DRAIN_STEPS;
   localparam int unsigned TB_SEED = 32'h1ace_b00c;
+  localparam int MAX_FLAG_CYCLES = 5;
 
   // Same-frequency clocks with a phase shift, to observe whether full/empty
   // are ever unnecessarily asserted under full-throughput back-to-back traffic.
@@ -149,6 +150,18 @@ import afifo_pkg::*;
 
     if (sb.errors != 0) begin
       $error("AFIFO-SB: total mismatches=%0d", sb.errors);
+      test_failed = 1'b1;
+    end
+
+    if (w_full_cycles > MAX_FLAG_CYCLES) begin
+      $error("AFIFO-STATS: w_full_cycles=%0d exceeds limit=%0d",
+             w_full_cycles, MAX_FLAG_CYCLES);
+      test_failed = 1'b1;
+    end
+
+    if (r_empty_cycles > MAX_FLAG_CYCLES) begin
+      $error("AFIFO-STATS: r_empty_cycles=%0d exceeds limit=%0d",
+             r_empty_cycles, MAX_FLAG_CYCLES);
       test_failed = 1'b1;
     end
 
