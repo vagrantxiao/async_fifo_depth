@@ -93,3 +93,12 @@ Change `DEPTH` in [verif/tb_top.sv](verif/tb_top.sv#L22), then run `make`.
 To verify the scaling law, add a third flop to
 [common/asynchronizer.v](common/asynchronizer.v) (`S = 3`) and confirm
 DEPTH = 8 still ping-pongs while DEPTH = 9 does not.
+
+When S=2, the minimum depth according to the scaling law is 7, which matches the simulation results shown below.
+
+![simulation_results](./img/depth7.png)
+
+When S=2, DEPTH=6 still ping-pongs, as predicted by the scaling law.
+
+![simulation_results_depth6](./img/depth6.png)
+
